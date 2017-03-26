@@ -108,28 +108,53 @@ function giveAdvice(emotion) {
     var adviceGiven; 
     switch (emotion) {
         case 'anger': 
-             return "You seem to be angry. I suggest you relieve some stress by pressing this button.";
+            return angerAdvice(); 
              break; 
         case 'contempt':
-            return "You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.";
+            return contemptAdvice(); 
             break;
         case 'disgust':
-            return "You seem to be disgusted. Haha."
+            return disgustAdvice(); 
             break;
         case 'fear': 
-            return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
+            return fearAdvice(); 
             break;
         case 'happiness':
-            return 'You seem to be happy. Watch some cat videos! :D'; 
+            return happinessAdvice(); 
             break; 
         case 'neutral':
-            return "You seem to be neutral. Smile some more please. :c";
+            return neutralAdvice(); 
             break;
         case 'sadness': 
-            return "You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D";
+            return sadnessAdvice(); 
             break; 
         case 'surprise': 
-            return "You seem surprised. Would you like to hear something surprising?";
+            return surpriseAdvice(); 
             break; 
     }
+}
+
+function angerAdvice() {
+    return "You seem to be angry. I suggest you relieve some stress by pressing this button.";
+}
+function contemptAdvice() {
+    return "You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.";
+}
+function disgustAdvice() {
+    return "You seem to be disgusted. Haha."
+}
+function fearAdvice() {
+    return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
+}
+function happinessAdvice() {
+    return 'You seem to be happy. Watch some cat videos! :D'; 
+}
+function neutralAdvice() {
+    return "You seem to be neutral. Smile some more please. :c";
+}
+function sadnessAdvice() {
+    return "You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D";
+}
+function surpriseAdvice() {
+    return "You seem surprised. Would you like to hear something surprising?";
 }
