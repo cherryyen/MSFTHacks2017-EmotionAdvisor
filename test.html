@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    $(function() {
+        var scoreData = 0; 
+        var params = {
+            // Request parameters
+        };
+
+        $.ajax({
+            url: "https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","eb400f39f23a4a4aadd248358e98f3e7");
+            },
+            type: "POST",
+            // Request body
+            data: '{ "url": "http://www.marcandangel.com/images/9-not-need-happy.jpg" }',
+        })
+        .done(function(data) {
+            alert("success");
+            //console.log(data);
+            scoreData = data; 
+            highProbability(scoreData);
+        })
+
+        .fail(function() {
+            alert("error");
+        });
+        //var scoreData = data; 
+    });
+    
+
+    function highProbability(scoreData) {
+        var highest = 0; 
+        var anger = scoreData[0].scores['anger'];
+        var contempt = scoreData[0].scores['contempt'];
+        var disgust = scoreData[0].scores['disgust'];
+        var fear = scoreData[0].scores['fear'];
+        var happiness = scoreData[0].scores['happiness'];
+        var neutral = scoreData[0].scores['neutral'];
+        var sadness = scoreData[0].scores['sadness'];
+        var surprise = scoreData[0].scores['surprise'];
+        
+        var emotionArray = ['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise']
+        
+        var highest = Math.max(anger, contempt, disgust, fear, happiness, neutral, sadness, surprise);
+        var highestVal = 0;
+        for (var i = 0; i < emotionArray.length ; i++) {
+            if (highest == scoreData[0].scores[emotionArray[i]])
+                highestVal = emotionArray[i]; 
+        }        
+        //var highestVal = array.find(function(scoreData){return score.Data[0].scores == highest})
+        alert(highestVal);
+    }
+</script>
+
+
+</body>
+</html>

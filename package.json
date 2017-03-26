@@ -1,0 +1,23 @@
+{
+  "name": "msfthacks2017-emotionadvisor",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cherryyen/msfthacks2017-emotionadvisor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cherryyen/msfthacks2017-emotionadvisor/issues"
+  },
+  "homepage": "https://github.com/cherryyen/msfthacks2017-emotionadvisor#readme",
+  "description": "",
+  "dependencies": {
+    "botbuilder": "^3.7.0",
+    "restify": "^4.3.0"
+  }
+}
