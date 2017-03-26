@@ -157,12 +157,13 @@ function fearAdvice() {
     return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
 } 
 function happinessAdvice() {
-    var card = new builder.HeroCard()
+    var card = new builder.AnimationCard()
         .title("happy card")
         .text('You seem to be happy. Watch some cat videos! :D')
-        .images([
-            builder.CardImage.create("https://docs.botframework.com/images/demo_bot_image.png")
-        ]);
+        .media([{
+            profile: "cat",
+            url: "http://25.media.tumblr.com/tumblr_m6kg3pMhpw1r2h6ioo1_400.gif"
+        }]);
     return card;
 }
 function neutralAdvice() {
