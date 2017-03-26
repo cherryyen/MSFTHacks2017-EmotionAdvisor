@@ -64,7 +64,15 @@ bot.dialog('/',
                     //session.send("You seem to rem " + highEmotion + ". I suggest you " + advice);
                     session.send(advice);
                 }
-            }
+            }, function (session, results) {
+        // create the card based on selection
+        var selectedCardName = results.response.entity;
+        var card = createCard(selectedCardName, session);
+
+        // attach the card to the reply message
+        var msg = new builder.Message(session).addAttachment(card);
+        session.send(msg);
+    }
             );
 
         } else if (session.message.text.match(/hi/i) || session.message.text.match(/hello/i)){
@@ -80,7 +88,6 @@ bot.dialog('/',
 //=========================================================
 // Emotion Related Stuff
 //=========================================================
-function highProbability(scoreData) {
     var highest = 0;
     var anger = scoreData[0].scores['anger'];
     var contempt = scoreData[0].scores['contempt'];
@@ -104,6 +111,21 @@ function highProbability(scoreData) {
     return highestVal
 }
 
+function createAudioCard(session) {
+    return new builder.AudioCard(session)
+        .title('I am your father')
+        .subtitle('Star Wars: Episode V - The Empire Strikes Back')
+        .text('The Empire Strikes Back (also known as Star Wars: Episode V – The Empire Strikes Back) is a 1980 American epic space opera film directed by Irvin Kershner. Leigh Brackett and Lawrence Kasdan wrote the screenplay, with George Lucas writing the film\'s story and serving as executive producer. The second installment in the original Star Wars trilogy, it was produced by Gary Kurtz for Lucasfilm Ltd. and stars Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams, Anthony Daniels, David Prowse, Kenny Baker, Peter Mayhew and Frank Oz.')
+        .image(builder.CardImage.create(session, 'https://upload.wikimedia.org/wikipedia/en/3/3c/SW_-_Empire_Strikes_Back.jpg'))
+        .media([
+            { url: 'http://www.wavlist.com/movies/004/father.wav' }
+        ])
+        .buttons([
+            builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/The_Empire_Strikes_Back', 'Read More')
+        ]);
+}
+
+
 function giveAdvice(emotion) { 
     var adviceGiven; 
     switch (emotion) {
@@ -120,7 +142,8 @@ function giveAdvice(emotion) {
             return fearAdvice(); 
             break;
         case 'happiness':
-            return happinessAdvice(); 
+            //return happinessAdvice(); 
+            
             break; 
         case 'neutral':
             return neutralAdvice(); 
@@ -147,8 +170,8 @@ function fearAdvice() {
     return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
 }
 function happinessAdvice() {
-    return 'You seem to be happy. Watch some cat videos! :D'; 
-    //return createAudioCard(session);
+    //return 'You seem to be happy. Watch some cat videos! :D'; 
+    return createAudioCard(session);
 }
 function neutralAdvice() {
     return "You seem to be neutral. Smile some more please. :c";
