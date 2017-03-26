@@ -117,7 +117,7 @@ function giveAdvice(emotion) {
             return fearAdvice(); 
             break;
         case 'happiness':
-            return happinessAdvice();             
+            return happinessAdvice();           
             break; 
         case 'neutral':
             return neutralAdvice(); 
@@ -133,7 +133,7 @@ function giveAdvice(emotion) {
 
 function angerAdvice() {
     var card = new builder.ThumbnailCard()
-        .title("angry card")
+        .title("Angry card")
         .text("You seem to be angry. I suggest you relieve some stress by pressing this button.")
     return card; 
 }
@@ -157,7 +157,7 @@ function fearAdvice() {
 } 
 function happinessAdvice() {
     var card = new builder.AnimationCard()
-        .title("happy card")
+        .title("Happy Card")
         .text('You seem to be happy. Watch some cat videos! :D')
         .media([{
             profile: "cat",
@@ -167,7 +167,7 @@ function happinessAdvice() {
 }
 function neutralAdvice() {
     var card = new builder.HeroCard()
-        .title("neutral card")
+        .title("Neutral Card")
         .text("You seem to be neutral. Smile some more please. :c")
         .images([
             builder.CardImage.create("flat face", "http://img00.deviantart.net/f591/i/2008/183/f/9/blank_face____hidden_feelngs___by_50500.jpg")
@@ -177,12 +177,28 @@ function neutralAdvice() {
 function sadnessAdvice() {
     var card = new builder.AudioCard()
         .title('Cat In the Kettle at the Peking Moon')
-        .text('YYou seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D')
+        .text('You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D')
         .media([{url: 'http://www.wavlist.com/humor/003/chinese.wav'}
             ]);
         return card;
 }
 
 function surpriseAdvice() {
-    return "You seem surprised. Would you like to hear something surprising?";
+    var surprisingFacts = [
+        "Did you know that the color of a hippo's sweat is pink?",
+        "Did you know that mosquitoes have 47 teeth?",
+        "A chameleon turns white when it is shocked.",
+        "Koala's appendix is about 2 meters long.",
+        "A squid has three hearts.",
+        "An ostrich's brain is smaller than its eye, so it quickly forgets what it just learned."
+    ]
+    var randomPhrase = surprisingFacts[Math.floor(Math.random() * surprisingFacts.length)];
+
+    var card = new builder.HeroCard()
+        .title("Surprise Card")
+        .text("You seem surprised. Let me share something surprising. " + randomPhrase)
+        .images([
+            builder.CardImage.create("flat face", "http://misccp3.cnu.edu.tw/myblog/201504/5841.png")
+        ]);
+    return card;
 }
