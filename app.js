@@ -61,7 +61,8 @@ bot.dialog('/',
                     var object = JSON.parse(body);
                     console.dir(object, { depth: null, colors: true })
                     var highEmotion = highProbability(object); 
-                    session.send("You are " + highEmotion);
+                    var advice = giveAdvice(highEmotion); 
+                    session.send("You are " + highEmotion + ". I suggest you " + advice);
                 }
             }
             );
@@ -81,32 +82,8 @@ bot.dialog('/',
 
 
 //=========================================================
-// Emotion API
+// Emotion Related Stuff
 //=========================================================
-/*
-request({
-    method: 'POST',
-    url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
-    headers: {
-        'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': 'eb400f39f23a4a4aadd248358e98f3e7'
-    },
-    body: JSON.stringify({
-        //url: 'http://www.marcandangel.com/images/9-not-need-happy.jpg'
-        url: attachmentUrl
-    })
-}, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        var object = JSON.parse(body);
-        console.dir(object, {depth: null, colors: true})
-    }
-}, function(success) {
-    console.log("yay it worked")
-}
-   
-); 
-*/
-
 function highProbability(scoreData) {
     var highest = 0;
     var anger = scoreData[0].scores['anger'];
@@ -129,4 +106,34 @@ function highProbability(scoreData) {
     //var highestVal = array.find(function(scoreData){return score.Data[0].scores == highest})
     //alert(highestVal);
     return highestVal
+}
+
+function giveAdvice(emotion) { 
+    var adviceGiven; 
+    switch (emotion) {
+        case 'anger': 
+             return "I suggest you relieve some stress.";
+             break; 
+        case 'contempt':
+            return "lalalala be happy.";
+            break;
+        case 'disgust':
+            return "I think you're disgusting."
+            break;
+        case 'fear': 
+            return "Take a deep breath :D"; 
+            break;
+        case 'happiness':
+            return 'Watch some cat videos'; 
+            break; 
+        case 'neutral':
+            return "Smile some more please :c";
+            break;
+        case 'sadness': 
+            return "Watch some funny cat videos ;D";
+            break; 
+        case 'surprise': 
+            return "Let's party";
+            break; 
+    }
 }
