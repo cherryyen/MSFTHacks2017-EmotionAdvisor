@@ -16,7 +16,15 @@ var connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
+
 var bot = new builder.UniversalBot(connector);
+//=========================================================
+// Bots Initial Message
+//=========================================================
+bot.on('conversationalUpdate', function(session) {
+    session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
+}); 
+
 server.post('/api/messages', connector.listen());
 
 //=========================================================
@@ -24,19 +32,10 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 var attachmentUrl = ""
 bot.dialog('/',
-    //function (session) {
-    //session.send("Hello World");
-    /*
-    session.send("You can easily send pictures to a user...");
-        var msg = new builder.Message(session)
-            .attachments([{
-                contentType: "image/jpeg",
-                contentUrl: "http://www.theoldrobots.com/images62/Bender-18.JPG"
-            }]);
-        session.endDialog(msg);
-    */
+
     function (session) {
         var msg = session.message;
+    
         if (msg.attachments.length) {
             var attachmentUrl = msg.attachments[0].contentUrl;
             if (attachmentUrl.match(/localhost/)) {
@@ -67,16 +66,12 @@ bot.dialog('/',
                 }
             }
             );
-            /*var resend = new builder.Message(session)
-                .attachments([{
-                    contentType: "image/jpeg",
-                    contentUrl: "http://www.theoldrobots.com/images62/Bender-18.JPG"
-                }]);
-            */
-            //session.endDialog(msg);
-        } else {
-            session.send("you said " + session.message.text);
 
+        } else if (session.message.text.match(/hi/i) || session.message.text.match(/hello/i)){
+            session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
+
+        } else {
+            session.send("Did you not hear me. I want a picture."); 
         }
     }
 );
