@@ -18,9 +18,10 @@ var connector = new builder.ChatConnector({
 });
 
 var bot = new builder.UniversalBot(connector);
+
 //=========================================================
 // Bots Initial Message
-//=========================================================
+//========================================================
 bot.on('conversationalUpdate', function(session) {
     session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
 }); 
@@ -80,6 +81,7 @@ bot.dialog('/',
 //=========================================================
 // Emotion Related Stuff
 //=========================================================
+function highProbability(scoreData) {
     var highest = 0;
     var anger = scoreData[0].scores['anger'];
     var contempt = scoreData[0].scores['contempt'];
@@ -103,8 +105,6 @@ bot.dialog('/',
     return highestVal
 }
 
-
-
 function giveAdvice(emotion) { 
     var adviceGiven; 
     switch (emotion) {
@@ -121,8 +121,7 @@ function giveAdvice(emotion) {
             return fearAdvice(); 
             break;
         case 'happiness':
-            return 'You seem to be happy. Watch some cat videos! :D'; 
-            
+            return happinessAdvice(); 
             break; 
         case 'neutral':
             return neutralAdvice(); 
@@ -135,7 +134,19 @@ function giveAdvice(emotion) {
             break; 
     }
 }
-
+// function createAudioCard(session) {
+//     return new builder.AudioCard(session)
+//         .title('I am your father')
+//         .subtitle('Star Wars: Episode V - The Empire Strikes Back')
+//         .text('The Empire Strikes Back (also known as Star Wars: Episode V – The Empire Strikes Back) is a 1980 American epic space opera film directed by Irvin Kershner. Leigh Brackett and Lawrence Kasdan wrote the screenplay, with George Lucas writing the film\'s story and serving as executive producer. The second installment in the original Star Wars trilogy, it was produced by Gary Kurtz for Lucasfilm Ltd. and stars Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams, Anthony Daniels, David Prowse, Kenny Baker, Peter Mayhew and Frank Oz.')
+//         .image(builder.CardImage.create(session, 'https://upload.wikimedia.org/wikipedia/en/3/3c/SW_-_Empire_Strikes_Back.jpg'))
+//         .media([
+//             { url: 'http://www.wavlist.com/movies/004/father.wav' }
+//         ])
+//         .buttons([
+//             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/The_Empire_Strikes_Back', 'Read More')
+//         ]);
+// }
 function angerAdvice() {
     return "You seem to be angry. I suggest you relieve some stress by pressing this button.";
 }
@@ -148,9 +159,17 @@ function disgustAdvice() {
 function fearAdvice() {
     return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
 }
-function happinessAdvice() {
+function happinessAdvice(session) {
     return 'You seem to be happy. Watch some cat videos! :D'; 
-    //return createAudioCard(session);
+
+    // var cards = getCardsAttachments();
+
+    // // create reply with Carousel AttachmentLayout
+    // var reply = new builder.Message(session)
+    //     .attachmentLayout(builder.AttachmentLayout.carousel)
+    //     .attachments(cards);
+
+    // session.send(reply);
 }
 function neutralAdvice() {
     return "You seem to be neutral. Smile some more please. :c";
