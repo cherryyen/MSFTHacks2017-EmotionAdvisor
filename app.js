@@ -136,7 +136,7 @@ function giveAdvice(emotion) {
 function angerAdvice() {
     var card = new builder.ThumbnailCard()
         .title("Angry card")
-        .text("You seem to be angry. I suggest you relieve some stress by pressing this button.")
+        .text("You seem to be angry. I suggest you relieve some stress by taking a walk and clearing your mind.")
     return card; 
 }
 function contemptAdvice() {
@@ -154,12 +154,11 @@ function disgustAdvice() {
 }
 function fearAdvice() {
     var card = new builder.HeroCard()
-        .text("I seem to be scared. Take a deep breath and relax. Or would you like to call someone.")
+        .text("You seem to be scared. Take a deep breath and relax. Calm down.")
     return card;
 } 
 function happinessAdvice() {
     var card = new builder.AnimationCard()
-        .title("Happy Card")
         .text('You seem to be happy. Watch some cat videos! :D')
         .media([{
             profile: "cat",
@@ -169,7 +168,6 @@ function happinessAdvice() {
 }
 function neutralAdvice() {
     var card = new builder.HeroCard()
-        .title("Neutral Card")
         .text("You seem to be neutral. Smile some more please. :c")
         .images([
             builder.CardImage.create("flat face", "http://img00.deviantart.net/f591/i/2008/183/f/9/blank_face____hidden_feelngs___by_50500.jpg")
@@ -197,7 +195,6 @@ function surpriseAdvice() {
     var randomPhrase = surprisingFacts[Math.floor(Math.random() * surprisingFacts.length)];
 
     var card = new builder.HeroCard()
-        .title("Surprise Card")
         .text("You seem surprised. Let me share something surprising. " + randomPhrase)
         .images([
             builder.CardImage.create("flat face", "http://misccp3.cnu.edu.tw/myblog/201504/5841.png")
