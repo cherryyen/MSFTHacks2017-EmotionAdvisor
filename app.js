@@ -130,32 +130,29 @@ function giveAdvice(emotion) {
             break; 
     }
 }
-// function createAudioCard(session) {
-//     return new builder.AudioCard(session)
-//         .title('I am your father')
-//         .subtitle('Star Wars: Episode V - The Empire Strikes Back')
-//         .text('The Empire Strikes Back (also known as Star Wars: Episode V – The Empire Strikes Back) is a 1980 American epic space opera film directed by Irvin Kershner. Leigh Brackett and Lawrence Kasdan wrote the screenplay, with George Lucas writing the film\'s story and serving as executive producer. The second installment in the original Star Wars trilogy, it was produced by Gary Kurtz for Lucasfilm Ltd. and stars Mark Hamill, Harrison Ford, Carrie Fisher, Billy Dee Williams, Anthony Daniels, David Prowse, Kenny Baker, Peter Mayhew and Frank Oz.')
-//         .image(builder.CardImage.create(session, 'https://upload.wikimedia.org/wikipedia/en/3/3c/SW_-_Empire_Strikes_Back.jpg'))
-//         .media([
-//             { url: 'http://www.wavlist.com/movies/004/father.wav' }
-//         ])
-//         .buttons([
-//             builder.CardAction.openUrl(session, 'https://en.wikipedia.org/wiki/The_Empire_Strikes_Back', 'Read More')
-//         ]);
-// }
-function angerAdvice() {
-    return "You seem to be angry. I suggest you relieve some stress by pressing this button.";
+
+function happinessAdvice() {
+    var card = new builder.ThumbnailCard()
+        .title("angry card")
+        .text("You seem to be angry. I suggest you relieve some stress by pressing this button.")
+    return card; 
 }
 function contemptAdvice() {
-    return "You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.";
+    var card = new builder.HeroCard()
+        .text("You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.")
+    return card;
 }
-function disgustAdvice() {  
-    return "You seem to be disgusted. Haha."
+function disgustAdvice() {
+    var card = new builder.HeroCard()
+        .text("You seem to be disgusted. Haha.")
+    return card;
 }
 function fearAdvice() {
-    return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
+    var card = new builder.HeroCard()
+        .text("I seem to be scared. Take a deep breath and relax. Or would you like to call someone.")
+    return card;
 } 
-function happinessAdvice() {
+function hahppinessAdvice() {
     var card = new builder.AnimationCard()
         .title("happy card")
         .text('You seem to be happy. Watch some cat videos! :D')
@@ -175,7 +172,9 @@ function neutralAdvice() {
     return card;
 }
 function sadnessAdvice() {
-    return "You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D";
+    var card = new builder.HeroCard()
+        .text("You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D")
+    return card;
 }
 function surpriseAdvice() {
     return "You seem surprised. Would you like to hear something surprising?";
