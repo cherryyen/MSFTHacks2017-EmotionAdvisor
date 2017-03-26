@@ -62,7 +62,8 @@ bot.dialog('/',
                     console.dir(object, { depth: null, colors: true })
                     var highEmotion = highProbability(object); 
                     var advice = giveAdvice(highEmotion); 
-                    session.send("You are " + highEmotion + ". I suggest you " + advice);
+                    //session.send("You seem to rem " + highEmotion + ". I suggest you " + advice);
+                    session.send(advice);
                 }
             }
             );
@@ -112,28 +113,28 @@ function giveAdvice(emotion) {
     var adviceGiven; 
     switch (emotion) {
         case 'anger': 
-             return "I suggest you relieve some stress.";
+             return "You seem to be angry. I suggest you relieve some stress by pressing this button.";
              break; 
         case 'contempt':
-            return "lalalala be happy.";
+            return "You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.";
             break;
         case 'disgust':
-            return "I think you're disgusting."
+            return "You seem to be disgusted. Haha."
             break;
         case 'fear': 
-            return "Take a deep breath :D"; 
+            return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
             break;
         case 'happiness':
-            return 'Watch some cat videos'; 
+            return 'You seem to be happy. Watch some cat videos! :D'; 
             break; 
         case 'neutral':
-            return "Smile some more please :c";
+            return "You seem to be neutral. Smile some more please. :c";
             break;
         case 'sadness': 
-            return "Watch some funny cat videos ;D";
+            return "You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D";
             break; 
         case 'surprise': 
-            return "Let's party";
+            return "You seem surprised. Would you like to hear something surprising?";
             break; 
     }
 }
