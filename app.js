@@ -99,10 +99,9 @@ function highProbability(scoreData) {
         if (highest == scoreData[0].scores[emotionArray[i]])
             highestVal = emotionArray[i];
     }
-    //var highestVal = array.find(function(scoreData){return score.Data[0].scores == highest})
-    //alert(highestVal);
-    return highestVal
+    return highestVal;
 }
+
 
 function giveAdvice(emotion) { 
     switch (emotion) {
@@ -119,7 +118,7 @@ function giveAdvice(emotion) {
             return fearAdvice(); 
             break;
         case 'happiness':
-            return happinessAdvice(); 
+            return happinessAdvice();             
             break; 
         case 'neutral':
             return neutralAdvice(); 
