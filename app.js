@@ -53,7 +53,6 @@ bot.dialog('/',
                     'Ocp-Apim-Subscription-Key': 'eb400f39f23a4a4aadd248358e98f3e7'
                 },
                 body: JSON.stringify({
-                    //url: 'http://www.marcandangel.com/images/9-not-need-happy.jpg'
                     url: attachmentUrl
                 })
             }, function (error, response, body) {
@@ -167,7 +166,13 @@ function happinessAdvice() {
     return card;
 }
 function neutralAdvice() {
-    return "You seem to be neutral. Smile some more please. :c";
+    var card = new builder.HeroCard()
+        .title("neutral card")
+        .text("You seem to be neutral. Smile some more please. :c")
+        .images([
+            builder.CardImage.create("flat face", "http://img00.deviantart.net/f591/i/2008/183/f/9/blank_face____hidden_feelngs___by_50500.jpg")
+        ]);
+    return card;
 }
 function sadnessAdvice() {
     return "You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D";
