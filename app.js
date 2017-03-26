@@ -73,6 +73,9 @@ bot.dialog('/listener',
                 }
             }
             );
+        } else if (msg.text.match(/exit/)) {
+            begin = 1;
+            session.endConversation("Bye!");
         } else {
             session.send("Did you not hear me. I want a picture."); 
         }
