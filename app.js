@@ -25,6 +25,7 @@ var bot = new builder.UniversalBot(connector);
 var begin = 1;
 bot.dialog('/', [
     function (session) {
+
         if (begin == 1) {
             session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
             begin--;
@@ -155,6 +156,9 @@ function disgustAdvice() {
 function fearAdvice() {
     var card = new builder.HeroCard()
         .text("You seem to be scared. Take a deep breath and relax. Calm down.")
+        .images([
+            builder.CardImage.create("corgi", "https://s-media-cache-ak0.pinimg.com/originals/27/e7/94/27e7940c0a63c93f32d439ca7f3b201d.gif")
+        ]);
     return card;
 } 
 function happinessAdvice() {
@@ -197,7 +201,7 @@ function surpriseAdvice() {
     var card = new builder.HeroCard()
         .text("You seem surprised. Let me share something surprising. " + randomPhrase)
         .images([
-            builder.CardImage.create("flat face", "http://misccp3.cnu.edu.tw/myblog/201504/5841.png")
+            builder.CardImage.create("surprise face", "http://misccp3.cnu.edu.tw/myblog/201504/5841.png")
         ]);
     return card;
 }
