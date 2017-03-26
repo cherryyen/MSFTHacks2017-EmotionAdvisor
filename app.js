@@ -22,18 +22,24 @@ var bot = new builder.UniversalBot(connector);
 //=========================================================
 // Bots Initial Message
 //========================================================
-bot.on('conversationalUpdate', function(session) {
-    session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
-}); 
+var begin = 1;
+bot.dialog('/', [
+    function (session) {
+        if (begin == 1) {
+            session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
+            begin--;
+        } else {
+            session.beginDialog('/listener');
+        }
+    }
+]); 
 
 server.post('/api/messages', connector.listen());
 
 //=========================================================
 // Bots Dialogs
 //=========================================================
-var attachmentUrl = ""
-bot.dialog('/',
-
+bot.dialog('/listener',
     function (session) {
         var msg = session.message;
     
@@ -66,10 +72,6 @@ bot.dialog('/',
                 }
             }
             );
-
-        } else if (session.message.text.match(/hi/i) || session.message.text.match(/hello/i)){
-            session.send("Hello. I'm your emotion advisor. Please show me a picture, so I could you some advice.");
-
         } else {
             session.send("Did you not hear me. I want a picture."); 
         }
