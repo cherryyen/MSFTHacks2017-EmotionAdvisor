@@ -172,10 +172,14 @@ function neutralAdvice() {
     return card;
 }
 function sadnessAdvice() {
-    var card = new builder.HeroCard()
-        .text("You seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D")
-    return card;
+    var card = new builder.AudioCard()
+        .title('Cat In the Kettle at the Peking Moon')
+        .text('YYou seem to be sad. Just be happy. Watch some funny cat videos! Cheer up! ;D')
+        .media([{url: 'http://www.wavlist.com/humor/003/chinese.wav'}
+            ]);
+        return card;
 }
+
 function surpriseAdvice() {
     return "You seem surprised. Would you like to hear something surprising?";
 }
