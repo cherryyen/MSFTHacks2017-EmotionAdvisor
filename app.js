@@ -1,6 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
-var request = require('request'); 
+var request = require('request');
 //=========================================================
 // Bot Setup
 //=========================================================
@@ -8,9 +8,9 @@ var request = require('request');
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
-   console.log('%s listening to %s', server.name, server.url); 
+    console.log('%s listening to %s', server.name, server.url);
 });
-  
+
 // Create chat bot
 var connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -23,7 +23,7 @@ server.post('/api/messages', connector.listen());
 // Bots Dialogs
 //=========================================================
 var attachmentUrl = ""
-bot.dialog('/', 
+bot.dialog('/',
     //function (session) {
     //session.send("Hello World");
     /*
@@ -34,17 +34,17 @@ bot.dialog('/',
                 contentUrl: "http://www.theoldrobots.com/images62/Bender-18.JPG"
             }]);
         session.endDialog(msg);
-    */    
-    function(session) {
-        var msg = session.message; 
+    */
+    function (session) {
+        var msg = session.message;
         if (msg.attachments.length) {
             var attachmentUrl = msg.attachments[0].contentUrl;
             if (attachmentUrl.match(/localhost/)) {
                 attachmentUrl = 'http://www.marcandangel.com/images/9-not-need-happy.jpg';
             }
-            console.log(attachmentUrl); 
+            console.log(attachmentUrl);
             var request = require('request');
-            
+
             request({
                 method: 'POST',
                 url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
@@ -59,13 +59,12 @@ bot.dialog('/',
             }, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var object = JSON.parse(body);
-                    console.dir(object, {depth: null, colors: true})
+                    console.dir(object, { depth: null, colors: true })
+                    var highEmotion = highProbability(object); 
+                    session.send("You are " + highEmotion);
                 }
-            }, function(success) {
-                console.log("yay it worked")
             }
-               
-            ); 
+            );
             /*var resend = new builder.Message(session)
                 .attachments([{
                     contentType: "image/jpeg",
@@ -74,7 +73,7 @@ bot.dialog('/',
             */
             //session.endDialog(msg);
         } else {
-            session.send("you said " + session.message.text); 
+            session.send("you said " + session.message.text);
 
         }
     }
@@ -107,3 +106,27 @@ request({
    
 ); 
 */
+
+function highProbability(scoreData) {
+    var highest = 0;
+    var anger = scoreData[0].scores['anger'];
+    var contempt = scoreData[0].scores['contempt'];
+    var disgust = scoreData[0].scores['disgust'];
+    var fear = scoreData[0].scores['fear'];
+    var happiness = scoreData[0].scores['happiness'];
+    var neutral = scoreData[0].scores['neutral'];
+    var sadness = scoreData[0].scores['sadness'];
+    var surprise = scoreData[0].scores['surprise'];
+
+    var emotionArray = ['anger', 'contempt', 'disgust', 'fear', 'happiness', 'neutral', 'sadness', 'surprise']
+
+    var highest = Math.max(anger, contempt, disgust, fear, happiness, neutral, sadness, surprise);
+    var highestVal = 0;
+    for (var i = 0; i < emotionArray.length; i++) {
+        if (highest == scoreData[0].scores[emotionArray[i]])
+            highestVal = emotionArray[i];
+    }
+    //var highestVal = array.find(function(scoreData){return score.Data[0].scores == highest})
+    //alert(highestVal);
+    return highestVal
+}
