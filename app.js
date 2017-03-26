@@ -138,8 +138,11 @@ function angerAdvice() {
     return card; 
 }
 function contemptAdvice() {
-    var card = new builder.HeroCard()
-        .text("You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.")
+var card = new builder.HeroCard()
+        .text("You seem contempt... I suggest you go out for a walk and enjoy the rest of the world.")
+        .images([
+            builder.CardImage.create("pity face", "https://refreshinglyrandom.files.wordpress.com/2015/05/cat-pity-face.jpg")
+        ]);
     return card;
 }
 function disgustAdvice() {
