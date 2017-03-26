@@ -62,7 +62,7 @@ bot.dialog('/',
                     var highEmotion = highProbability(object); 
                     var advice = giveAdvice(highEmotion); 
                     //session.send("You seem to rem " + highEmotion + ". I suggest you " + advice);
-                    session.send(advice);
+                    session.send(new builder.Message(session).attachments([advice]));
                 }
             }
             );
@@ -105,7 +105,6 @@ function highProbability(scoreData) {
 }
 
 function giveAdvice(emotion) { 
-    var adviceGiven; 
     switch (emotion) {
         case 'anger': 
             return angerAdvice(); 
@@ -140,14 +139,20 @@ function angerAdvice() {
 function contemptAdvice() {
     return "You seem contempt. I suggest you go out for a walk and enjoy the rest of the world.";
 }
-function disgustAdvice() {
+function disgustAdvice() {  
     return "You seem to be disgusted. Haha."
 }
 function fearAdvice() {
     return "I seem to be scared. Take a deep breath and relax. Or would you like to call someone."; 
 }
 function happinessAdvice() {
-    return 'You seem to be happy. Watch some cat videos! :D'; 
+    var card = new builder.HeroCard()
+        .title("happy card")
+        .text('You seem to be happy. Watch some cat videos! :D')
+        .images([
+            builder.CardImage.create("https://docs.botframework.com/images/demo_bot_image.png")
+            ]);
+    return card; 
 }
 function neutralAdvice() {
     return "You seem to be neutral. Smile some more please. :c";
