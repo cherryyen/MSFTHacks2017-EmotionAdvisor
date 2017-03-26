@@ -131,7 +131,7 @@ function giveAdvice(emotion) {
     }
 }
 
-function happinessAdvice() {
+function angerAdvice() {
     var card = new builder.ThumbnailCard()
         .title("angry card")
         .text("You seem to be angry. I suggest you relieve some stress by pressing this button.")
@@ -152,7 +152,7 @@ function fearAdvice() {
         .text("I seem to be scared. Take a deep breath and relax. Or would you like to call someone.")
     return card;
 } 
-function hahppinessAdvice() {
+function happinessAdvice() {
     var card = new builder.AnimationCard()
         .title("happy card")
         .text('You seem to be happy. Watch some cat videos! :D')
